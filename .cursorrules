@@ -1,0 +1,10 @@
+# Reown AppKit Rules
+
+## Wallet Connection
+When implementing wallet connection features, use @reown/appkit and @reown/appkit-adapter-wagmi for Next.js applications.
+
+## Best Practices
+- Use AppKit for wallet modal UI
+- Implement proper wallet state management
+- Handle connection errors gracefully
+- Support multiple wallet providers

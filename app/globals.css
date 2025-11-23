@@ -1,26 +1,397 @@
-@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;900&family=Space+Mono:wght@400;700&family=Noto+Sans+JP:wght@400;700&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff0080;
+  --neon-purple: #9d00ff;
+  --neon-blue: #0066ff;
+  --deep-black: #0a0a0f;
+  --dark-purple: #1a0a2e;
+  --dark-blue: #0f0820;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: linear-gradient(135deg, var(--deep-black) 0%, var(--dark-purple) 50%, var(--dark-blue) 100%);
+  background-attachment: fixed;
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Animated background grid */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.01) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.01) 1px, transparent 1px);
+  background-size: 200px 200px;
+  animation: gridMove 30s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  100% {
+    transform: translate(200px, 200px);
+  }
+}
+
+/* Glitch effect */
+@keyframes glitch {
+
+  0%,
+  100% {
+    transform: translate(0);
+  }
+
+  20% {
+    transform: translate(-2px, 2px);
+  }
+
+  40% {
+    transform: translate(-2px, -2px);
+  }
+
+  60% {
+    transform: translate(2px, 2px);
+  }
+
+  80% {
+    transform: translate(2px, -2px);
+  }
+}
+
+.glitch {
+  animation: glitch 0.3s infinite;
+}
+
+.glitch-text {
+  position: relative;
+  display: inline-block;
+}
+
+.glitch-text::before,
+.glitch-text::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.glitch-text::before {
+  left: 2px;
+  text-shadow: -2px 0 var(--neon-pink);
+  clip: rect(24px, 550px, 90px, 0);
+  animation: glitch-anim 3s infinite linear alternate-reverse;
+}
+
+.glitch-text::after {
+  left: -2px;
+  text-shadow: -2px 0 var(--neon-cyan);
+  clip: rect(85px, 550px, 140px, 0);
+  animation: glitch-anim 2s infinite linear alternate-reverse;
+}
+
+@keyframes glitch-anim {
+  0% {
+    clip: rect(42px, 9999px, 44px, 0);
+  }
+
+  10% {
+    clip: rect(12px, 9999px, 59px, 0);
+  }
+
+  20% {
+    clip: rect(66px, 9999px, 105px, 0);
+  }
+
+  30% {
+    clip: rect(84px, 9999px, 16px, 0);
+  }
+
+  40% {
+    clip: rect(3px, 9999px, 87px, 0);
+  }
+
+  50% {
+    clip: rect(19px, 9999px, 56px, 0);
+  }
+
+  60% {
+    clip: rect(76px, 9999px, 22px, 0);
+  }
+
+  70% {
+    clip: rect(34px, 9999px, 91px, 0);
+  }
+
+  80% {
+    clip: rect(58px, 9999px, 40px, 0);
+  }
+
+  90% {
+    clip: rect(21px, 9999px, 73px, 0);
+  }
+
+  100% {
+    clip: rect(95px, 9999px, 30px, 0);
+  }
+}
+
+/* Scan line effect */
+@keyframes scan {
+  0% {
+    top: 0%;
+  }
+
+  100% {
+    top: 100%;
+  }
+}
+
+.scan-line {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to bottom,
+      transparent,
+      rgba(0, 240, 255, 0.5),
+      transparent);
+  animation: scan 8s linear infinite;
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* Neon text glow */
+.neon-text {
+  text-shadow:
+    0 0 5px currentColor,
+    0 0 10px currentColor,
+    0 0 20px currentColor,
+    0 0 40px currentColor;
+}
+
+.neon-cyan {
+  color: var(--neon-cyan);
+  text-shadow:
+    0 0 5px var(--neon-cyan),
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    0 0 40px var(--neon-cyan);
+}
+
+.neon-pink {
+  color: var(--neon-pink);
+  text-shadow:
+    0 0 5px var(--neon-pink),
+    0 0 10px var(--neon-pink),
+    0 0 20px var(--neon-pink),
+    0 0 40px var(--neon-pink);
+}
+
+.neon-purple {
+  color: var(--neon-purple);
+  text-shadow:
+    0 0 5px var(--neon-purple),
+    0 0 10px var(--neon-purple),
+    0 0 20px var(--neon-purple),
+    0 0 40px var(--neon-purple);
+}
+
+/* Button styles */
+.cyber-button {
+  position: relative;
+  padding: 12px 24px;
+  background: transparent;
+  border: 2px solid var(--neon-cyan);
+  color: var(--neon-cyan);
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+.cyber-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  transition: left 0.5s;
+}
+
+.cyber-button:hover::before {
+  left: 100%;
+}
+
+.cyber-button:hover {
+  box-shadow:
+    0 0 10px var(--neon-cyan),
+    0 0 20px var(--neon-cyan),
+    inset 0 0 20px rgba(0, 240, 255, 0.2);
+}
+
+/* Panel styles */
+.cyber-panel {
+  background: rgba(10, 10, 15, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.cyber-panel::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  right: -2px;
+  bottom: -2px;
+  background: linear-gradient(45deg, var(--neon-cyan), var(--neon-pink), var(--neon-purple));
+  opacity: 0;
+  transition: opacity 0.3s;
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.cyber-panel:hover::before {
+  opacity: 0.5;
+}
+
+/* Japanese text */
+.jp-text {
+  font-family: 'Noto Sans JP', sans-serif;
+  writing-mode: vertical-rl;
+  text-orientation: upright;
+}
+
+/* Particles */
+@keyframes float {
+
+  0%,
+  100% {
+    transform: translateY(0) translateX(0);
+  }
+
+  33% {
+    transform: translateY(-20px) translateX(10px);
+  }
+
+  66% {
+    transform: translateY(-10px) translateX(-10px);
+  }
+}
+
+.particle {
+  position: absolute;
+  width: 2px;
+  height: 2px;
+  background: var(--neon-cyan);
+  border-radius: 50%;
+  animation: float 6s infinite ease-in-out;
+  opacity: 0.6;
+  box-shadow: 0 0 10px var(--neon-cyan);
+}
+
+/* Loading bar */
+@keyframes loadingBar {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+.loading-bar {
+  position: relative;
+  width: 100%;
+  height: 2px;
+  background: rgba(0, 240, 255, 0.1);
+  overflow: hidden;
+}
+
+.loading-bar::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, var(--neon-cyan), transparent);
+  animation: loadingBar 1.5s infinite;
+}
+
+/* Hologram effect */
+@keyframes hologram {
+
+  0%,
+  100% {
+    opacity: 0.8;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+}
+
+.hologram {
+  animation: hologram 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 10px var(--neon-cyan));
+}
+
+/* Terminal text */
+.terminal-text {
+  font-family: 'Space Mono', monospace;
+  color: var(--neon-cyan);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: rgba(10, 10, 15, 0.5);
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, var(--neon-cyan), var(--neon-purple));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(180deg, var(--neon-pink), var(--neon-cyan));
 }

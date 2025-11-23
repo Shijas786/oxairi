@@ -1,65 +1,164 @@
-import Image from "next/image";
+'use client';
+
+import { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import Particles from '@/components/Particles';
+import TerminalScreen from '@/components/TerminalScreen';
+import IdentityScan from '@/components/IdentityScan';
+import VeiledDashboard from '@/components/VeiledDashboard';
+import AiriAppears from '@/components/AiriAppears';
+import WalletConnect from '@/components/WalletConnect';
+import WaitlistPanel from '@/components/WaitlistPanel';
+import '@/lib/appkit';
 
 export default function Home() {
+  const [currentScreen, setCurrentScreen] = useState(0);
+  const [showBootSequence, setShowBootSequence] = useState(true);
+
+  const screens = [
+    <TerminalScreen key="terminal" onNext={() => setCurrentScreen(1)} />,
+    <IdentityScan key="identity" onNext={() => setCurrentScreen(2)} />,
+    <VeiledDashboard key="dashboard" onNext={() => setCurrentScreen(3)} />,
+    <AiriAppears key="airi" onComplete={() => setCurrentScreen(0)} />,
+  ];
+
+  if (showBootSequence) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          className="text-center space-y-8"
+        >
+          {/* Boot logo */}
+          <motion.div
+            initial={{ scale: 0.5, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            transition={{ duration: 1 }}
+          >
+            <div className="text-8xl font-black mb-4">
+              <span className="neon-cyan">0x</span>
+              <span className="neon-pink">AIRI</span>
+            </div>
+            <div className="text-sm text-gray-500 terminal-text">
+              Project Classification: Unknown
+            </div>
+          </motion.div>
+
+          {/* Boot messages */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1 }}
+            className="space-y-3 terminal-text text-sm max-w-md mx-auto"
+          >
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.2 }}
+              className="text-cyan-400"
+            >
+              {'>'} Initializing neural interface...
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 1.6 }}
+              className="text-purple-400"
+            >
+              {'>'} Loading protocol layer 0xAiri...
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2.0 }}
+              className="text-pink-400"
+            >
+              {'>'} Establishing resonance frequency...
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: 2.4 }}
+              className="text-yellow-400"
+            >
+              {'>'} Warning: Signal unstable
+            </motion.div>
+          </motion.div>
+
+          {/* Loading bar */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 2.8 }}
+            className="max-w-md mx-auto"
+          >
+            <div className="loading-bar" />
+          </motion.div>
+
+          {/* Enter button */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 3.2 }}
+          >
+            <button
+              onClick={() => setShowBootSequence(false)}
+              className="cyber-button"
+            >
+              Initialize Connection
+            </button>
+          </motion.div>
+
+          {/* Warning text */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: [0, 0.5, 0] }}
+            transition={{ delay: 3.5, duration: 3, repeat: Infinity }}
+            className="text-xs text-gray-600 terminal-text"
+          >
+            Unauthorized access detected • Sector Iris-34 • Origin unknown
+          </motion.div>
+        </motion.div>
+      </div>
+    );
+  }
+
   return (
-    <div className="flex min-h-screen items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex min-h-screen w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
+    <main className="relative">
+      <Particles />
+
+      <AnimatePresence mode="wait">
+        <motion.div
+          key={currentScreen}
+          initial={{ opacity: 0, x: 100 }}
+          animate={{ opacity: 1, x: 0 }}
+          exit={{ opacity: 0, x: -100 }}
+          transition={{ duration: 0.5 }}
+        >
+          {screens[currentScreen]}
+        </motion.div>
+      </AnimatePresence>
+
+      {/* Navigation hints */}
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex gap-3 z-50">
+        {screens.map((_, idx) => (
+          <button
+            key={idx}
+            onClick={() => setCurrentScreen(idx)}
+            className={`w-3 h-3 rounded-full transition-all ${idx === currentScreen
+              ? 'bg-cyan-400 shadow-[0_0_10px_var(--neon-cyan)]'
+              : 'bg-gray-700 hover:bg-gray-600'
+              }`}
+          />
+        ))}
+      </div>
+
+      {/* Right Side Panels */}
+      <div className="fixed top-4 right-4 z-50 max-w-sm space-y-4">
+        <WalletConnect />
+        <WaitlistPanel />
+      </div>
+    </main>
   );
 }

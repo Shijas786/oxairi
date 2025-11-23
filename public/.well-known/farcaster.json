@@ -1,0 +1,15 @@
+{
+    "accountAssociation": {
+        "header": "eyJmaWQiOjEyMzQ1LCJ0eXBlIjoiY3VzdG9keSIsImtleSI6IjB4MDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMDAwMCJ9",
+        "payload": "eyJkb21haW4iOiJleGFtcGxlLmNvbSJ9",
+        "signature": "MHg..."
+    },
+    "frame": {
+        "version": "1",
+        "name": "Project 0xAiri",
+        "iconUrl": "https://your-domain.com/icon.png",
+        "splashImageUrl": "https://your-domain.com/splash.png",
+        "splashBackgroundColor": "#0a0a0f",
+        "homeUrl": "https://your-domain.com"
+    }
+}
