@@ -9,7 +9,7 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@base-org/account": "^2.5.0",
+    "@base-org/account": "~2.4.0",
     "@coinbase/wallet-sdk": "^4.3.7",
     "@farcaster/frame-sdk": "^0.0.64",
     "@gemini-wallet/core": "^0.3.2",
