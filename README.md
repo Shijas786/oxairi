@@ -1,186 +1,195 @@
-# 🌀 Project 0xAiri - Classified
+# 🎌 Project 0xAiri - Farcaster Mini App
 
-> **A cryptic anime interface with no clear purpose**
+A cyberpunk anime-themed Farcaster Mini App with wallet connection and onchain interactions.
 
-## 🔥 The Concept
+![Project 0xAiri](./public/icon.png)
 
-Project 0xAiri is a mysterious web experience that blurs the lines between:
-- **DeFi dashboard**
-- **Anime terminal**
-- **Hidden ARG**
-- **Future game**
+## ⚡ Features
 
-The app intentionally **never reveals what it actually is**, creating maximum curiosity, speculation, and FOMO.
+- 🎨 **Anime Cyberpunk UI** - Custom designed character (Airi) with neon aesthetics
+- 🔗 **Reown AppKit Integration** - Professional wallet connection using WalletConnect v2
+- 🟣 **Farcaster SDK** - Native Farcaster sign-in and frame support
+- ⛓️ **Base Network** - Optimized for Base mainnet transactions
+- 📱 **Mini App Ready** - Full Farcaster manifest with metadata
+- 🎭 **Engagement Features** - Waitlist, airdrop alerts, Cast sharing
 
-## ✨ Features
-
-### 🎭 The Mystery Engine
-
-Four interconnected screens that tell no story:
-
-#### Screen 1: The Terminal
-- Glitchy anime character silhouette with dual-colored glowing eyes
-- "Signal Connected" animation
-- Mysterious fluctuating metrics:
-  - **Stability**: 32% (constantly changing)
-  - **Energy**: 5,293 units (fluctuating)
-  - **Sync Level**: 0.02 (unstable)
-- Interactive buttons that trigger cryptic animations
-- No explanation of what anything represents
-
-#### Screen 2: Identity Scan
-- Your username appears in neon glow
-- Airi's eyes watching from the darkness
-- Japanese text floating in the background
-- Animated scanning sequence:
-  - "Scanning onchain signature... unstable..."
-  - "Re-running neural resonance check..."
-- Creates an illusion of deep analysis
-
-#### Screen 3: The Veiled Dashboard
-- **Access Levels**: L0 (Wanderer) → L3 (Chosen)
-- **Locked Modules**:
-  - 🔒 Protocol Access: Locked
-  - 💎 Shards: 0 / 7 Discovered
-  - ⚡ Sync Grade: Unverified
-  - 📡 Pulse Layer: Offline
-  - 🎁 Airdrop Path: Uncalculated
-  - 🌀 Genesis Sequence: Hidden
-- Everything is locked, nothing is accessible
-- Clicking modules shows "Authorization denied"
-
-#### Screen 4: Airi Appears
-- Airi manifests as a holographic entity
-- Glitch effects and scan lines
-- Three cryptic messages:
-  - "You arrived too early."
-  - "Keep the link open."
-  - "I will remember you."
-- Mysterious coordinates and frequencies
-- No explanation, maximum FOMO
-
-## 🎨 Visual Style
-
-**Anime × Hacker Terminal × DeFi Vibes**
-
-- **Colors**: Neon cyan, pink, purple, aqua
-- **Effects**: 
-  - Glitch shaders
-  - Hologram animations
-  - Scan lines
-  - Floating particles
-  - Neon glow effects
-- **Typography**:
-  - Orbitron (cyber/tech)
-  - Space Mono (terminal)
-  - Noto Sans JP (Japanese text)
-- **Aesthetic**: Genshin UI + Evangelion terminal + Cyberpunk dashboard
-
-## 🚀 Getting Started
+## 🚀 Quick Start
 
 ### Prerequisites
-- Node.js 18+ recommended
+
+- Node.js 18+ 
 - npm or yarn
+- Reown Project ID from [dashboard.reown.com](https://dashboard.reown.com)
 
 ### Installation
 
 ```bash
-# Navigate to project directory
-cd 0xairi
-
 # Install dependencies
-npm install --legacy-peer-deps
+npm install
 
-# Start development server
+# Copy environment variables
+cp .env.local.example .env.local
+
+# Add your Reown Project ID to .env.local
+NEXT_PUBLIC_PROJECT_ID=your_reown_project_id_here
+
+# Run development server
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Visit `http://localhost:3000` to see the app.
 
-### Production Build
+## 🔧 Configuration
 
-```bash
-npm run build
-npm start
+### Reown AppKit Setup
+
+1. Get your Project ID from [Reown Dashboard](https://dashboard.reown.com)
+2. Add to `.env.local`:
+   ```bash
+   NEXT_PUBLIC_PROJECT_ID=your_project_id_here
+   ```
+
+### Farcaster Manifest
+
+The Farcaster manifest is located at `/public/.well-known/farcaster.json`:
+
+```json
+{
+  "accountAssociation": {
+    "header": "...",
+    "payload": "...",
+    "signature": "..."
+  },
+  "frame": {
+    "version": "1",
+    "name": "0xAiri",
+    "homeUrl": "https://0xairi.vercel.app",
+    "iconUrl": "https://0xairi.vercel.app/icon.png",
+    "splashImageUrl": "https://0xairi.vercel.app/screenshot.png",
+    "splashBackgroundColor": "#0a0a0f",
+    "webhookUrl": "https://0xairi.vercel.app/api/webhook"
+  }
+}
 ```
 
-## 🛠️ Tech Stack
-
-- **Framework**: Next.js 14
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS 4 + Custom CSS
-- **Animations**: Framer Motion
-- **Fonts**: Google Fonts (Orbitron, Space Mono, Noto Sans JP)
-
-## 📂 Project Structure
+## 📁 Project Structure
 
 ```
 0xairi/
-├── app/
-│   ├── globals.css      # Cyberpunk design system
-│   ├── layout.tsx       # Root layout with scan line
-│   └── page.tsx         # Main orchestrator
-├── components/
-│   ├── Particles.tsx    # Floating particle effects
-│   ├── TerminalScreen.tsx
-│   ├── IdentityScan.tsx
-│   ├── VeiledDashboard.tsx
-│   └── AiriAppears.tsx
-└── public/              # Static assets
+├── app/                    # Next.js app directory
+│   ├── layout.tsx         # Root layout with providers
+│   ├── page.tsx           # Main page
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   ├── WalletConnect.tsx  # Wallet connection UI
+│   ├── TerminalScreen.tsx # Main terminal interface
+│   ├── WaitlistPanel.tsx  # Engagement panel
+│   └── ...
+├── config/                # Configuration
+│   └── index.tsx          # Wagmi/Reown config
+├── context/               # React context providers
+│   └── index.tsx          # AppKit context provider
+├── hooks/                 # Custom React hooks
+│   └── useFarcasterSignIn.ts
+├── lib/                   # Utility libraries
+│   ├── farcaster-provider.tsx
+│   └── ...
+└── public/                # Static assets
+    ├── .well-known/
+    │   └── farcaster.json
+    ├── icon.png
+    └── screenshot.png
 ```
 
-## 🎯 The Strategy
+## 🎯 Key Components
 
-This project is designed to **farm engagement without real features**:
+### Wallet Connection
 
-1. **High-Quality UI** - Premium anime cyberpunk aesthetics
-2. **Cryptic Text** - Everything seems important but means nothing
-3. **Locked Modules** - "Coming soon" creates anticipation
-4. **Fake Metrics** - Numbers that fluctuate but have no meaning
-5. **Mystery Levels** - Cosmetic access levels (L0-L3)
+Uses **Reown AppKit** (WalletConnect v2) with Wagmi:
 
-## 🤔 What People Will Ask
+```typescript
+import { useAppKit, useAppKitAccount } from '@reown/appkit/react';
 
-- "Is this DeFi or a game?"
-- "Why is the interface so polished?"
-- "Is this linked to a token?"
-- "What are the shards?"
-- "How do I increase my access level?"
-- "When does the airdrop happen?"
+const { open } = useAppKit();
+const { address, isConnected } = useAppKitAccount();
+```
 
-**Perfect.** That's exactly the point. 🎭
+### Farcaster Sign-In
+
+```typescript
+import { useFarcasterSignIn } from '@/hooks/useFarcasterSignIn';
+
+const { signIn, isSignedIn, userData } = useFarcasterSignIn();
+```
 
 ## 🌐 Deployment
 
-Deploy to Vercel, Netlify, or any Next.js-compatible platform:
+### Vercel (Recommended)
 
 ```bash
-# Vercel
-vercel
-
-# Or use GitHub integration
+# Deploy to production
+npx vercel --prod
 ```
 
-## 🔮 Future "Enhancements"
+### Environment Variables on Vercel
 
-- More cryptic screens
-- Fake wallet connection
-- Mysterious "events" 
-- Countdown timers to nothing
-- More locked features
-- "Shard discovery" animations
-- Fake onchain interactions
+Add these in your Vercel project settings:
 
-## ⚠️ Disclaimer
+- `NEXT_PUBLIC_PROJECT_ID` - Your Reown Project ID
 
-This is a **creative experiment** in UX mystery and engagement mechanics. It's art that looks like tech. There are no real features, tokens, or airdrops. Just pure aesthetic intrigue.
+## 🔗 Links
 
-## 📜 License
+- **Live App**: [https://0xairi.vercel.app](https://0xairi.vercel.app)
+- **GitHub**: [https://github.com/Shijas786/oxairi](https://github.com/Shijas786/oxairi)
+- **Reown Dashboard**: [https://dashboard.reown.com](https://dashboard.reown.com)
+- **Farcaster Docs**: [https://miniapps.farcaster.xyz](https://miniapps.farcaster.xyz)
 
-MIT - Use this concept to create your own mysterious experiences!
+## 📚 Documentation
+
+- [Reown AppKit Docs](https://docs.reown.com/appkit/next/core/installation)
+- [Farcaster Mini Apps](https://miniapps.farcaster.xyz/docs/sdk/actions/sign-in)
+- [Base Network](https://base.org)
+
+## 🎨 Customization
+
+### Styling
+
+The app uses custom CSS variables for the cyberpunk theme:
+
+```css
+:root {
+  --neon-cyan: #00f0ff;
+  --neon-pink: #ff0080;
+  --neon-purple: #9d00ff;
+  --deep-black: #0a0a0f;
+}
+```
+
+### Anime Character
+
+Character images are in `/public/`:
+- `airi-main.png` - Main character
+- `airi-waiting.png` - Waiting state
+
+## 🛠️ Tech Stack
+
+- **Next.js 14** - React framework with App Router
+- **TypeScript** - Type safety
+- **Tailwind CSS** - Utility-first CSS
+- **Framer Motion** - Animations
+- **Reown AppKit** - Wallet connection
+- **Wagmi** - React hooks for Ethereum
+- **Viem** - TypeScript Ethereum library
+- **Farcaster Frame SDK** - Farcaster integration
+
+## 📄 License
+
+MIT
+
+## 🤝 Contributing
+
+Contributions welcome! Please open an issue or PR.
 
 ---
 
-Built with 💜 and ⚡ by the enigmatic Project 0xAiri team
-
-**Status**: Signal Unstable • Sector: Iris-34 • Origin: Unknown
+Built with 💜 for the Farcaster community

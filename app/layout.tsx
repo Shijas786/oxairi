@@ -2,24 +2,20 @@ import type { Metadata } from "next";
 import { headers } from "next/headers";
 import "./globals.css";
 import { FarcasterProvider } from "@/lib/farcaster-provider";
-import { Web3Provider } from "@/lib/web3-provider";
-import { wagmiConfig } from "@/lib/wagmi";
-import { cookieToInitialState } from "wagmi";
+import ContextProvider from "@/context";
 
 export const metadata: Metadata = {
   title: "Project 0xAiri - Classified",
   description: "Signal unstable. Neural pathway detected.",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const initialState = cookieToInitialState(
-    wagmiConfig,
-    headers().get("cookie")
-  );
+  const headersObj = await headers();
+  const cookies = headersObj.get('cookie');
 
   return (
     <html lang="en">
@@ -79,11 +75,11 @@ export default function RootLayout({
       </head>
       <body>
         <div className="scan-line" />
-        <Web3Provider>
+        <ContextProvider cookies={cookies}>
           <FarcasterProvider>
             {children}
           </FarcasterProvider>
-        </Web3Provider>
+        </ContextProvider>
       </body>
     </html>
   );
